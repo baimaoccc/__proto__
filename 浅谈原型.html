@@ -6,7 +6,21 @@
 </head>
 <body>
 <script>
-	
+	/**
+	 * 构造函数的继承
+	 * 通过在子类中调用父类的构造函数，
+	 * 使用call或者apply方法用子类中的this代替父类构造函数的this
+	 * 值得一提的是：在构造函数中，this指的是当前正在通过new 构造函数初始化的对象
+	 * */
+    function People(name,age) {
+        this.name = name;
+        this.age = age;
+    }
+    function Student(name,age) {
+        People.call(this,name,age);
+    }
+    console.log(new Student('baimao',21));
+
 </script>
 </body>
 </html>
