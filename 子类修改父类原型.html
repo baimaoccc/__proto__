@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<script>
+
+    function Animal(family) {
+        this.family = family;
+        Animal.prototype.run = function () {
+            console.log('动物都会跑');
+        }
+        Animal.prototype.legs = 4;
+    }
+
+    function Dog(family, name, color) {
+        Animal.call(this, family);
+        this.name = name;
+        this.color = color;
+    }
+
+    // 用一个中间变量obj 作为桥梁去完成子类对父类的继承
+    var obj = Object.create(Animal.prototype);
+    Dog.prototype = obj;
+    Dog.prototype.constructor = Dog;
+
+    Dog.prototype.skill = function () {
+        console.log('看家');
+    }
+
+
+
+    //修改了父类
+    Dog.prototype.__proto__.add = function () {
+        console.log('这是一个通过子类去修改父类的测试');
+    }
+
+    //会发现中间变量被改，所以js中对象的拷贝是引用拷贝，即拷贝地址的值拷贝
+    console.log(obj);
+
+
+    Dog.prototype.__proto__.legs = 2;
+
+
+    var animal = new Animal('test');
+
+    //在这里输出父类对象，会发现add方法增添了，但父类的legs属性并没有被改
+    animal.add();
+    console.log(animal.legs);
+
+
+    /**
+     * 总结：
+     * 子类继承父类，对父类的原型中修改原先存在的属性，修改只供自身使用，对父类没有影响
+     * 但如果子类对父类的原型中添加了父类不存在的属性，添加操作会影响父类
+     * */
+</script>
+
+</body>
+</html>

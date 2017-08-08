@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ES6继承新语法</title>
+</head>
+<body>
+<script>
+    /**
+     * 什么是ES6？
+     * JavaScript的核心模块：ECMAScript（是JS的核心重要组成部分）
+     * HTML结构节点：DOM节点
+     * 浏览器的核心对象：BOM
+     *
+     * DOM:HTML结构
+     *      html
+     *          body
+     *              main
+     *                  div
+     * BOM:提供了独立于内容而与浏览器窗口进行交互的对象,window对象是BOM的顶层(核心)对象，所有对象都是通过它延伸出来的
+     * ECMAScript：ES(ECMA: 欧洲计算机制造商协会，JavaScript语法的标准化组织)
+     * 规定了这些内容：语法，关键字，声明，解析等规则
+     * 数据类型:object string number boolean
+     * 也支持原型和继承
+     * 还有一些内置的对象和函数库
+     * 运算符号......
+     * */
+
+    //ES6对对象的继承有了新的语法
+    /**
+     * ES6中类的数据类型就是函数，类本身指向构造函数
+     * 在ES6中，除了constructor中的属性是放在类中，其余定义的方法都是放在构造函数的prototype中
+     * */
+
+    class People {
+        // 构造函数
+        constructor(name, age) {
+            //初始化属性
+            this.name = name;
+            this.age = age;
+        }
+
+        eat(food) {
+            console.log(this.name + '吃：' + food);
+        }
+    }
+
+    //设置原型中的内容
+    People.prototype.legs = 2;
+
+    //创建People对象
+    var people = new People('baimao', 21);
+    people.eat('苹果');
+    console.log(people);
+
+	/******************************************************************/
+    class Man extends People {
+        constructor(name, age, sex) {
+            //相当于会自动的去执行People的构造函数
+            super(name, age);
+            //新增，扩展自己的属性
+            this.sex = sex;
+        }
+
+        playMJ(hours) {
+            console.log(this.name + '打了' + hours + '个小时麻将');
+        }
+    }
+
+    var man1 = new Man('翠花', 28, '男');
+    man1.playMJ(2);
+
+
+</script>
+</body>
+</html>
